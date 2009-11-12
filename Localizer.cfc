@@ -82,8 +82,86 @@
 		
 		<cfif Len(loc.currentLocale) GT 5>
 			<cfswitch expression="#loc.currentLocale#">
+				<cfcase value="Chinese (China)">
+					<cfset loc.currentLocale = "zh_CN">
+				</cfcase>
+				<cfcase value="Chinese (Hong Kong)">
+					<cfset loc.currentLocale = "zh_HK">
+				</cfcase>
+				<cfcase value="Chinese (Taiwan)">
+					<cfset loc.currentLocale = "zh_TW">
+				</cfcase>
+				<cfcase value="Dutch (Belgian)">
+					<cfset loc.currentLocale = "nl_BE">
+				</cfcase>
+				<cfcase value="Dutch (Standard)">
+					<cfset loc.currentLocale = "nl_NL">
+				</cfcase>
+				<cfcase value="English (Australian)">
+					<cfset loc.currentLocale = "en_AU">
+				</cfcase>
+				<cfcase value="English (Canadian)">
+					<cfset loc.currentLocale = "en_CA">
+				</cfcase>
+				<cfcase value="English (New Zealand)">
+					<cfset loc.currentLocale = "en_NZ">
+				</cfcase>
+				<cfcase value="English (UK)">
+					<cfset loc.currentLocale = "en_UK">
+				</cfcase>
 				<cfcase value="English (US)">
 					<cfset loc.currentLocale = "en_US">
+				</cfcase>
+				<cfcase value="French (Belgian)">
+					<cfset loc.currentLocale = "fr_BE">
+				</cfcase>
+				<cfcase value="French (Canadian)">
+					<cfset loc.currentLocale = "fr_CA">
+				</cfcase>
+				<cfcase value="French (Standard)">
+					<cfset loc.currentLocale = "fr_FR">
+				</cfcase>
+				<cfcase value="French (Swiss)">
+					<cfset loc.currentLocale = "fr_CH">
+				</cfcase>
+				<cfcase value="German (Austrian)">
+					<cfset loc.currentLocale = "de_AT">
+				</cfcase>
+				<cfcase value="German (Standard)">
+					<cfset loc.currentLocale = "de_DE">
+				</cfcase>
+				<cfcase value="German (Swiss)">
+					<cfset loc.currentLocale = "de_CH">
+				</cfcase>
+				<cfcase value="Italian (Standard)">
+					<cfset loc.currentLocale = "it_IT">
+				</cfcase>
+				<cfcase value="Italian (Swiss)">
+					<cfset loc.currentLocale = "it_CH">
+				</cfcase>
+				<cfcase value="Japanese">
+					<cfset loc.currentLocale = "ja_JP">
+				</cfcase>
+				<cfcase value="Korean">
+					<cfset loc.currentLocale = "ko_KR">
+				</cfcase>
+				<cfcase value="Norwegian (Bokmal)">
+					<cfset loc.currentLocale = "nb_NO">
+				</cfcase>
+				<cfcase value="Norwegian (Nynorsk)">
+					<cfset loc.currentLocale = "nn_NO">
+				</cfcase>
+				<cfcase value="Portuguese (Brazilian)">
+					<cfset loc.currentLocale = "pt_BR">
+				</cfcase>
+				<cfcase value="Portuguese (Standard)">
+					<cfset loc.currentLocale = "pt_PT">
+				</cfcase>
+				<cfcase value="Spanish (Modern)">
+					<cfset loc.currentLocale = "es_ES">
+				</cfcase>
+				<cfcase value="Spanish (Standard)">
+					<cfset loc.currentLocale = "es_ES">
 				</cfcase>
 				<cfcase value="Swedish">
 					<cfset loc.currentLocale = "sv_SE">
