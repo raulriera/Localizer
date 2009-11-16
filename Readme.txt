@@ -4,13 +4,18 @@ EXAMPLE:
 #localize("this is a static string")#
 #localize("this is a dynamic string {#LsDateFormat(Now())#}")#
 
+CHANGES 0.0.6:
+=============
+
+- Complete locale list (thanks to Pierre Paridans)
+- Compability with Wheels 0.9.4.
+
 CHANGES 0.0.5:
 =============
 
 - Compability with Wheels 0.9.3.
 - It would display a comment besides every "localized" message so you can see where that message was harvested (for multiple messages, it will use the first it found).
 - Bug squashing.
-- Removed the dependency for Localizer (MAJOR bug)
 
 CHANGES 0.0.4:
 =============
