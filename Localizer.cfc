@@ -8,30 +8,40 @@
 	<cffunction name="l" returnType="any" output="false" hint="Shortcut method to 'localize'">
 		<cfargument name="text" type="string" required="true" hint="Text to localize" />
 		
+		<cfreturn localize(arguments.text)>
+	</cffunction>
+	
+	<cffunction name="localize" returnType="any" output="false" hint="Harvest the line to localize">
+		<cfargument name="text" type="string" required="true" hint="Text to localize" />
+		
 		<cfset var loc = {}>
 		
 		<cftry>
 			<!--- Check where was this line fired --->
 			<cfset loc.source = $captureTemplateAndLineNumber()>
 			
-			<cfreturn localize(arguments.text, loc.source)>
-		
+			<cfreturn $localize(arguments.text, loc.source)>
+			
+			<!--- If anything failed, return the original text --->
 			<cfcatch type="any">	
 				<cfreturn arguments.text>
 			</cfcatch>
 		</cftry>
 	</cffunction>
 
-	<cffunction name="localize" returnType="any" output="false">
+	<cffunction name="$localize" returnType="any" output="false">
 		<cfargument name="text" type="string" required="true" hint="Text to localize" />
 		<cfargument name="source" type="struct" required="true" hint="Source of the text to write" />
 		
 		<cfset var loc = {}>
 		<cfset loc.textContainsDynamicText = arguments.text CONTAINS "{" AND arguments.text CONTAINS "}">
 		
-		<cfif get("environment") IS "design">
+		<!--- Only fetch from the repository in development mode --->
+		<cfif get("environment") IS "design" OR get("environment") IS "development">
+			<!--- Get the texts from the repository --->
 			<cfset loc.localizedText = $getLocalizedText()>
 		<cfelse>
+			<!--- Get the texts from the localized repository --->
 			<cfset loc.localizedText = $getLocalizedText(false)>
 		</cfif>
 		
@@ -49,7 +59,7 @@
 		<cfset loc.searchStruct = StructFindKey(loc.localizedText, arguments.text)>
 		
 		<!--- Check if the environment is other than production, so that it writes the text into repository --->
-		<cfif get("environment") IS "design">
+		<cfif get("environment") IS "design" OR get("environment") IS "development">
 			<cfset $writeTextIntoLocalizationRepository(arguments.text, arguments.source)>
 		</cfif>
 				
@@ -184,14 +194,15 @@
 			<cfset loc.currentLocale = "repository">
 		</cfif>
 		
+		<!--- Build the file path --->
 		<cfset loc.filePath = "plugins/localizer/locales/#loc.currentLocale#.cfm">
-		
+					
 		<!--- Check if the file exists --->
 		<cfif FileExists(ExpandPath(loc.filePath))>
 			<cfinclude template="locales/#loc.currentLocale#.cfm" />
 		<!--- Otherwise, create it --->
 		<cfelse>
-			<cffile action="write" file="#ExpandPath(loc.filePath)#" output="" />
+			<cffile action="write" file="#ExpandPath(loc.filePath)#" output="" mode="777" />
 		</cfif>
 	
 		<cfreturn loc>
@@ -246,7 +257,7 @@
 			<cfset loc.ret.line = loc.context.line>
 			<!--- the user template where the method called occurred --->
 			<cfset loc.ret.template = loc.context.template>		
-=			<!--- change template name from full to relative path. --->
+			<!--- change template name from full to relative path. --->
 			<cfset loc.ret.template = listchangedelims(removechars(loc.ret.template, 1, len(expandpath(application.wheels.webpath))), "/", "\/")>
 		</cfif>
 		
