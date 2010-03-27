@@ -1,7 +1,7 @@
 <cfcomponent output="false">
 	
 	<cffunction name="init">
-		<cfset this.version = "0.9.4">
+		<cfset this.version = "1.0.3,0.9.4">
 		<cfreturn this>
 	</cffunction>
 
@@ -175,4 +175,81 @@
 		<cfreturn loc.ret>
 	</cffunction>
 	
+	<!--- Overwrites to Wheels core functions --->
+	<cffunction name="distanceOfTimeInWords" returntype="string" access="public" output="false"
+		hint="Pass in two dates to this method, and it will return a string describing the difference between them.">
+		<cfargument name="fromTime" type="date" required="true" hint="Date to compare from">
+		<cfargument name="toTime" type="date" required="true" hint="Date to compare to">
+		<cfargument name="includeSeconds" type="boolean" required="false" default="#application.wheels.functions.distanceOfTimeInWords.includeSeconds#" hint="Whether or not to include the number of seconds in the returned string">
+		<cfscript>
+			var loc = {};
+			loc.minuteDiff = DateDiff("n", arguments.fromTime, arguments.toTime);
+			loc.secondDiff = DateDiff("s", arguments.fromTime, arguments.toTime);
+			loc.hours = 0;
+			loc.days = 0;
+			loc.returnValue = "";
+	
+			if (loc.minuteDiff <= 1)
+			{
+				if (arguments.includeSeconds && loc.secondDiff < 60)
+				{
+					if (loc.secondDiff < 5)
+						loc.returnValue = l("less than 5 seconds");
+					else if (loc.secondDiff < 10)
+						loc.returnValue = l("less than 10 seconds");
+					else if (loc.secondDiff < 20)
+						loc.returnValue = l("less than 20 seconds");
+					else if (loc.secondDiff < 40)
+						loc.returnValue = l("half a minute");
+					else
+						loc.returnValue = l("less than a minute");
+				}
+				else
+				{
+					loc.returnValue = l("1 minute";
+				}
+			}
+			else if (loc.minuteDiff < 45)
+			{
+				loc.returnValue = loc.minuteDiff & " " & l("minutes");
+			}
+			else if (loc.minuteDiff < 90)
+			{
+				loc.returnValue = l("about 1 hour");
+			}
+			else if (loc.minuteDiff < 1440)
+			{
+				loc.hours = Ceiling(loc.minuteDiff/60);
+				loc.returnValue = l("about") & " " & loc.hours & " " & l("hours");
+			}
+			else if (loc.minuteDiff < 2880)
+			{
+				loc.returnValue = l("1 day");
+			}
+			else if (loc.minuteDiff < 43200)
+			{
+				loc.days = Int(loc.minuteDiff/1440);
+				loc.returnValue = loc.days & " " & l("days");
+			}
+			else if (loc.minuteDiff < 86400)
+			{
+				loc.returnValue = l("about 1 month");
+			}
+			else if (loc.minuteDiff < 525600)
+			{
+				loc.months = Int(loc.minuteDiff/43200);
+				loc.returnValue = loc.months & " " & l("months");
+			}
+			else if (loc.minuteDiff < 1051200)
+			{
+				loc.returnValue = l("about 1 year");
+			}
+			else if (loc.minuteDiff > 1051200)
+			{
+				loc.years = Int(loc.minuteDiff/525600);
+				loc.returnValue = l("over" & " " & loc.years & " " & l("years");
+			}
+		</cfscript>
+		<cfreturn loc.returnValue>
+	</cffunction>	
 </cfcomponent>

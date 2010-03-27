@@ -4,6 +4,12 @@ EXAMPLE:
 #localize("this is a static string")#
 #localize("this is a dynamic string {#LsDateFormat(Now())#}")#
 
+CHANGES 0.1:
+=============
+
+- Compability with Wheels 1.0.3.
+- Added support for `distanceOfTimeInWords()`,`timeAgoInWords()` and `timeUntilInWords()`.
+
 CHANGES 0.0.6:
 =============
 
