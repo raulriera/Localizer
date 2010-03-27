@@ -34,6 +34,10 @@
 		<cfargument name="source" type="struct" required="true" hint="Source of the text to write" />
 		
 		<cfset var loc = {}>
+		
+		<!--- Escape pound signs --->
+		<cfset arguments.text = Replace(arguments.text,"##","####","all")>
+		<!--- Find out if the text contains dymanic driven content --->
 		<cfset loc.textContainsDynamicText = arguments.text CONTAINS "{" AND arguments.text CONTAINS "}">
 		
 		<!--- Only fetch from the repository in development mode --->
@@ -187,6 +191,7 @@
 		<cfargument name="fromRepository" type="boolean" required="false" default="true" />
 		
 		<cfset var loc = {}>
+		<cfset $localizer = {}>
 		
 		<cfif arguments.fromRepository IS false>
 			<cfset loc.currentLocale = getLocaleCode()>
@@ -205,7 +210,7 @@
 			<cffile action="write" file="#ExpandPath(loc.filePath)#" output="" mode="777" />
 		</cfif>
 	
-		<cfreturn loc>
+		<cfreturn $localizer>
 	</cffunction>
 	
 	<cffunction name="$writeTextIntoLocalizationRepository" returnType="void" output="false" hint="Writes the text to the localization repository">
@@ -220,7 +225,7 @@
 		<!--- If nothing was found --->
 		<cfif ArrayLen(loc.searchStruct) LTE 0>	
 			<cfoutput>
-			<cfsavecontent variable="loc.text">[cfset loc['''#arguments.text#'''] = '''#arguments.text#''']] <!-- #arguments.source.template# ###arguments.source.line# --></cfsavecontent>
+			<cfsavecontent variable="loc.text">[cfset $localizer['''#arguments.text#'''] = '''#arguments.text#''']] <!-- #arguments.source.template# ###arguments.source.line# --></cfsavecontent>
 			</cfoutput>
 			
 			<!--- Replace placeholders --->
@@ -295,7 +300,7 @@
 				}
 				else
 				{
-					loc.returnValue = l("1 minute";
+					loc.returnValue = l("1 minute");
 				}
 			}
 			else if (loc.minuteDiff < 45)
@@ -336,7 +341,7 @@
 			else if (loc.minuteDiff > 1051200)
 			{
 				loc.years = Int(loc.minuteDiff/525600);
-				loc.returnValue = l("over" & " " & loc.years & " " & l("years");
+				loc.returnValue = l("over") & " " & loc.years & " " & l("years");
 			}
 		</cfscript>
 		<cfreturn loc.returnValue>

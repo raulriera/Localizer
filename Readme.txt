@@ -8,6 +8,7 @@ CHANGES 0.1:
 =============
 
 - Compatibility with Wheels 1.0.3.
+- Renamed the `loc` variable (in the repositories) to `$localizer`. Potentially saving problem from being named as Wheels local scope convention.
 - Moved all functionality to `$localize` to support property the `localize` and `l` function shortcuts.
 - Added support for `distanceOfTimeInWords()`,`timeAgoInWords()` and `timeUntilInWords()`.
 - Added mode="777" to the write function so that the generated localized files could be deleted easily.
