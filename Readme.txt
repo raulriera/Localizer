@@ -4,28 +4,13 @@ EXAMPLE:
 #localize("this is a static string")#
 #localize("this is a dynamic string {#LsDateFormat(Now())#}")#
 
-CHANGES 0.1:
-=============
-
-- Compatibility with Wheels 1.0.3.
-- Renamed the `loc` variable (in the repositories) to `$localizer`. Potentially saving problem from being named as Wheels local scope convention.
-- Moved all functionality to `$localize` to support property the `localize` and `l` function shortcuts.
-- Added support for `distanceOfTimeInWords()`,`timeAgoInWords()` and `timeUntilInWords()`.
-- Added mode="777" to the write function so that the generated localized files could be deleted easily.
-- Code cleanup
-
-CHANGES 0.0.6:
-=============
-
-- Complete locale list (thanks to Pierre Paridans)
-- Compatibility with Wheels 0.9.4.
-
 CHANGES 0.0.5:
 =============
 
-- Compatibility with Wheels 0.9.3.
+- Compability with Wheels 0.9.3.
 - It would display a comment besides every "localized" message so you can see where that message was harvested (for multiple messages, it will use the first it found).
 - Bug squashing.
+- Removed the dependency for Localizer (MAJOR bug)
 
 CHANGES 0.0.4:
 =============
@@ -36,7 +21,7 @@ CHANGES 0.0.3:
 =============
 
 - Changes to the documentation.
-- Compatibility with Wheels 0.9.1.
+- Compability with Wheels 0.9.1.
 
 CHANGES 0.0.2:
 =============

@@ -1,1 +1,1 @@
-<!--- All localized strings will be stored here, copy and paste them to a file in this same directory with the filename of your locale: example: es_VE.cfm --->
+<!--- All localized strings will be stored here, copy and paste them to a file in this same directory with the filename of your locale: example: es_ve.cfm. Make sure the file name is all lower case if you are running linux. --->
